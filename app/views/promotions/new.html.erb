@@ -1,0 +1,40 @@
+<h1>Nova promoção</h1>
+
+<div>
+    <%= form_with(model: @promotion, local: true) do |form| %>
+        <div>
+            <%= form.label :name, 'Nome' %>
+            <%= form.text_field :name, placeholder: 'Digite aqui...' %>
+        </div>
+
+        <div>
+            <%= form.label :description, 'Descrição' %>
+            <%= form.text_field :description, placeholder: 'Digite aqui...' %>
+        </div>
+
+        <div>
+            <%= form.label :code, 'Código' %>
+            <%= form.text_field :code, placeholder: 'Digite aqui...' %>
+        </div>
+
+        <div>
+            <%= form.label :discount_rate, 'Desconto' %>
+            <%= form.text_field :discount_rate, placeholder: 'Digite aqui...' %>
+        </div>
+
+        <div>
+            <%= form.label :coupon_quantity, 'Quantidade de cupons' %>
+            <%= form.text_field :coupon_quantity, placeholder: 'Digite aqui...' %>
+        </div>
+
+        <div>
+            <%= form.label :expiration_date, 'Data de término' %>
+            <%= form.text_field :expiration_date, placeholder: 'dd/mm/aaaa' %>
+        </div>
+
+        <div>
+            <%= form.submit 'Criar promoção' %>
+        </div>
+        
+    <% end %>
+</div>
