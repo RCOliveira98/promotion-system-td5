@@ -2,33 +2,39 @@
 
 <div>
     <%= form_with(model: @promotion, local: true) do |form| %>
+        <% if @promotion.errors.any? %>
+            <% @promotion.errors.full_messages.each do |message| %>
+                <div><%= message %></div>
+            <% end %>
+        <% end %>
+        
         <div>
-            <%= form.label :name, 'Nome' %>
+            <%= form.label :name %>
             <%= form.text_field :name, placeholder: 'Digite aqui...' %>
         </div>
 
         <div>
-            <%= form.label :description, 'Descrição' %>
+            <%= form.label :description %>
             <%= form.text_field :description, placeholder: 'Digite aqui...' %>
         </div>
 
         <div>
-            <%= form.label :code, 'Código' %>
+            <%= form.label :code %>
             <%= form.text_field :code, placeholder: 'Digite aqui...' %>
         </div>
 
         <div>
-            <%= form.label :discount_rate, 'Desconto' %>
+            <%= form.label :discount_rate %>
             <%= form.text_field :discount_rate, placeholder: 'Digite aqui...' %>
         </div>
 
         <div>
-            <%= form.label :coupon_quantity, 'Quantidade de cupons' %>
+            <%= form.label :coupon_quantity %>
             <%= form.text_field :coupon_quantity, placeholder: 'Digite aqui...' %>
         </div>
 
         <div>
-            <%= form.label :expiration_date, 'Data de término' %>
+            <%= form.label :expiration_date %>
             <%= form.text_field :expiration_date, placeholder: 'dd/mm/aaaa' %>
         </div>
 

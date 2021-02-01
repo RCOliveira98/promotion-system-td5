@@ -1,0 +1,20 @@
+pt-BR:
+  activerecord:
+    models:
+      promotion:
+        one: Promoção
+        other: Promoções
+      user:
+        one: Usuário
+        other: Usuários
+    attributes:
+      promotion:
+        id: Identificador único
+        name: Nome
+        code: Código
+        description: Descrição
+        discount_rate: Desconto
+        coupon_quantity: Quantidade de cupons
+        expiration_date: Data de término
+        updated_at: Atualizado em
+        created_at: Criado em
