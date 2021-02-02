@@ -1,0 +1,22 @@
+<h1>Lista de categorias de produto</h1>
+
+<%= link_to 'Registrar uma categoria de produto', new_product_category_path %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Nome</th>
+      <th>Código</th>
+    </tr>
+  </thead>
+  <tbody>
+      <% @product_categories.each do |product_category| %>
+        <tr>
+            <td><%= product_category.id %></td>
+            <td><%= link_to product_category.name, edit_product_category_path(id: product_category.id) %></td>
+            <td><%= product_category.code %></td>
+        </tr>
+      <% end %>
+  </tbody>
+</table>

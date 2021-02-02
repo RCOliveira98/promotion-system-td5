@@ -4,9 +4,9 @@ pt-BR:
       promotion:
         one: Promoção
         other: Promoções
-      user:
-        one: Usuário
-        other: Usuários
+      product_category:
+        one: Categoria de produto
+        other: Categorias de produto
     attributes:
       promotion:
         id: Identificador único
@@ -18,3 +18,7 @@ pt-BR:
         expiration_date: Data de término
         updated_at: Atualizado em
         created_at: Criado em
+      product_category:
+        id: Identificador único
+        name: Nome
+        code: Código

@@ -42,7 +42,7 @@ end
 group :test do
   # Acceptance test framework for web applications. Read more: https://github.com/teamcapybara/capybara
   gem 'capybara'
+  # Simple one-liner tests for common Rails functionality
+  gem 'shoulda-matchers', '~> 4.0'
 end
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
