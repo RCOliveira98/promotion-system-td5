@@ -1,3 +1,11 @@
+<% if flash[:notice] %>
+    <div>
+        <span><%= flash[:notice] %></span>
+    </div>
+<% end %>
+
+<%= link_to 'Voltar', promotions_path %>
+
 <h1><%= @promotion.name %></h1>
 <h4><%= @promotion.description %></h4>
 <p><%= @promotion.code %></p>
@@ -5,4 +13,12 @@
 <p><%= @promotion.coupon_quantity %></p>
 <p><%= localize(@promotion.expiration_date) %></p>
 
-<%= link_to 'Voltar', promotions_path %>
+<%= link_to 'Gerar cupons', generate_coupons_promotion_path(id: @promotion.id), method: :post %>
+
+<% unless @promotion.coupons.empty? %>
+    <div>
+        <% @promotion.coupons.each do |coupon| %>
+            <p><%= coupon.code %></p>
+        <% end %>
+    </div>
+<% end %>
