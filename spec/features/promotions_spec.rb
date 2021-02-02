@@ -67,4 +67,63 @@ feature 'Admin registers a valid promotion' do
   
       expect(page).to have_content('já está em uso')
     end
+end
+
+feature 'Admin update a promotion' do
+  scenario 'and attributes cannot be blank' do
+    promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
+      code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
+      expiration_date: '22/12/2033')
+    
+    visit root_path
+    click_on 'Promoções'
+    click_on promotion.name
+    click_on 'Editar'
+
+    fill_in 'Nome', with: ''
+    fill_in 'Descrição', with: ''
+    fill_in 'Código', with: ''
+    fill_in 'Desconto', with: ''
+    fill_in 'Quantidade de cupons', with: ''
+    fill_in 'Data de término', with: ''
+
+    click_on 'Atualizar'
+
+    expect(page).to have_content('não pode ficar em branco', count: 5)
   end
+
+  scenario 'and code must be unique' do
+    Promotion.create!(name: 'SuperShow', description: 'Promoção superShow',
+      code: 'SupShow20', discount_rate: 30, coupon_quantity: 15,
+      expiration_date: '22/12/2033')
+    promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
+                      code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
+                      expiration_date: '22/12/2033')
+
+    visit root_path
+    click_on 'Promoções'
+    click_on promotion.name
+    click_on 'Editar'
+
+    fill_in 'Código', with: 'SupShow20'
+    click_on 'Atualizar'
+
+    expect(page).to have_content('já está em uso')
+  end
+
+  scenario 'success' do
+    promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
+                      code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
+                      expiration_date: '22/12/2033')
+
+    visit root_path
+    click_on 'Promoções'
+    click_on promotion.name
+    click_on 'Editar'
+
+    fill_in 'Código', with: 'NATAL2021'
+    click_on 'Atualizar'
+
+    expect(page).to have_content('Promoção atualizada com sucesso!')
+  end
+end

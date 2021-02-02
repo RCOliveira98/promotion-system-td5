@@ -1,0 +1,47 @@
+<%= form_with(model: @promotion, local: true) do |form| %>
+    <% if @promotion.errors.any? %>
+        <p class="has-text-danger">Encontramos o(s) seguinte(s) erro(s):</p>
+        <div class="notification is-danger is-light">
+            <ol>
+                <% @promotion.errors.full_messages.each do |message| %>
+                    <li><strong><%= message %></strong></li>
+                <% end %>
+            </ol>
+        </div>
+    <% end %>
+    
+    <div>
+        <%= form.label :name %>
+        <%= form.text_field :name, placeholder: 'Digite aqui...' %>
+    </div>
+
+    <div>
+        <%= form.label :description %>
+        <%= form.text_field :description, placeholder: 'Digite aqui...' %>
+    </div>
+
+    <div>
+        <%= form.label :code %>
+        <%= form.text_field :code, placeholder: 'Digite aqui...' %>
+    </div>
+
+    <div>
+        <%= form.label :discount_rate %>
+        <%= form.text_field :discount_rate, placeholder: 'Digite aqui...' %>
+    </div>
+
+    <div>
+        <%= form.label :coupon_quantity %>
+        <%= form.text_field :coupon_quantity, placeholder: 'Digite aqui...' %>
+    </div>
+
+    <div>
+        <%= form.label :expiration_date %>
+        <%= form.text_field :expiration_date, placeholder: 'dd/mm/aaaa' %>
+    </div>
+
+    <div>
+        <%= form.submit button_title, class: 'button is-link' %>
+    </div>
+        
+<% end %>
