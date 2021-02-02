@@ -34,6 +34,14 @@ class PromotionsController < ApplicationController
         end
     end
 
+    def destroy
+        if @promotion.destroy
+            redirect_to promotions_path
+        else
+            render :show
+        end
+    end
+
     def generate_coupons
         @promotion = Promotion.find(params[:id])
         1.upto(@promotion.coupon_quantity) { |number| Coupon.create(code: "#{@promotion.code}-#{'%04d' % number}", promotion: @promotion) }

@@ -127,3 +127,30 @@ feature 'Admin update a promotion' do
     expect(page).to have_content('Promoção atualizada com sucesso!')
   end
 end
+
+feature 'Admin delete a promotion' do
+  scenario 'success without coupons' do
+    promotion = Promotion.create!(name: 'SuperShow', description: 'Promoção superShow',
+      code: 'SupShow20', discount_rate: 30, coupon_quantity: 15,
+      expiration_date: '22/12/2033')
+
+    visit root_path
+    click_on 'Promoções'
+    click_on promotion.name
+    click_on 'Apagar'
+    expect(page).to have_no_content('SupShow20')
+  end
+
+  scenario 'success with coupons' do
+    promotion = Promotion.create!(name: 'SuperShow', description: 'Promoção superShow',
+      code: 'SupShow20', discount_rate: 30, coupon_quantity: 15,
+      expiration_date: '22/12/2033')
+
+    visit root_path
+    click_on 'Promoções'
+    click_on promotion.name
+    click_on 'Gerar cupons'
+    click_on 'Apagar'
+    expect(page).to have_no_content('SupShow20')
+  end
+end

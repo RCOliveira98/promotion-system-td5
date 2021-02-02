@@ -12,12 +12,14 @@
 <p><%= localize(@promotion.expiration_date) %></p>
 
 <div>
+    <%= link_to 'Voltar', promotions_path, class: 'button is-dark' %>
     <%= link_to 'Editar', edit_promotion_path(id: @promotion.id), class: 'button is-warning' %>
+    <%= link_to 'Apagar', promotion_path(id: @promotion.id), method: :delete, class: 'button is-danger' %>
     <%= link_to 'Gerar cupons',
         generate_coupons_promotion_path(id: @promotion.id),
         method: :post,
         class: 'button is-link' %>
-    <%= link_to 'Voltar', promotions_path, class: 'button is-dark' %>
+    
 </div>
 
 <% unless @promotion.coupons.empty? %>
