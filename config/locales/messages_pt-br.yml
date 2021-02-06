@@ -1,0 +1,5 @@
+pt-BR:
+  messages:
+    create: "%{item} cadastrado(s) com sucesso!"
+    drop: "%{item} apagado(s) com sucesso!"
+    update: "%{item} atualizado(s) com sucesso!"

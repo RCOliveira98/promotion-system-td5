@@ -13,7 +13,7 @@ feature 'Admin generates coupons' do
         click_on 'Gerar cupons'
 
         expect(current_path).to eq(promotion_path(id: promotion.id))
-        expect(page).to have_content('Cupons gerados com sucesso')
+        expect(page).to have_content('Cupons cadastrado(s) com sucesso!')
         expect(page).to have_content('NATAL10-0001')
         expect(page).to have_content('NATAL10-0002')
         expect(page).to have_content('NATAL10-0003')

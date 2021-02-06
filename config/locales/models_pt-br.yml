@@ -7,6 +7,9 @@ pt-BR:
       product_category:
         one: Categoria de produto
         other: Categorias de produto
+      coupon:
+        one: Cupom
+        other: Cupons
     attributes:
       promotion:
         id: Identificador único
@@ -21,4 +24,7 @@ pt-BR:
       product_category:
         id: Identificador único
         name: Nome
+        code: Código
+      coupon:
+        id: Identificador único
         code: Código

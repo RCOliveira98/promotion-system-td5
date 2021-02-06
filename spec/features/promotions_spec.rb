@@ -94,7 +94,7 @@ feature 'Admin update a promotion' do
 
   scenario 'and code must be unique' do
     Promotion.create!(name: 'SuperShow', description: 'Promoção superShow',
-      code: 'SupShow20', discount_rate: 30, coupon_quantity: 15,
+      code: 'SUPSHOW20', discount_rate: 30, coupon_quantity: 15,
       expiration_date: '22/12/2033')
     promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                       code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
@@ -105,7 +105,7 @@ feature 'Admin update a promotion' do
     click_on promotion.name
     click_on 'Editar'
 
-    fill_in 'Código', with: 'SupShow20'
+    fill_in 'Código', with: 'SUPSHOW20'
     click_on 'Atualizar'
 
     expect(page).to have_content('já está em uso')

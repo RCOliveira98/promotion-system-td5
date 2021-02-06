@@ -44,8 +44,8 @@ class PromotionsController < ApplicationController
 
     def generate_coupons
         @promotion = Promotion.find(params[:id])
-        1.upto(@promotion.coupon_quantity) { |number| Coupon.create(code: "#{@promotion.code}-#{'%04d' % number}", promotion: @promotion) }
-        flash[:notice] = 'Cupons gerados com sucesso'
+        @promotion.generate_coupons!
+        flash[:notice] = t('messages.create', item: Coupon.model_name.human(count: 2))
         redirect_to promotion_path(id: @promotion.id)
     end
 
