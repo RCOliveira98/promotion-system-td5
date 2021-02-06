@@ -7,14 +7,21 @@ class Promotion < ApplicationRecord
 
     def generate_coupons!
         Coupon.transaction do
-            1.upto(coupon_quantity) do |number| 
-                coupons.create!(code: "#{code}-#{'%04d' % number}")
-            end
+            coupons.insert_all! build_coupon_matrix()
         end
     end
 
     private
     def code_upcase
         code.upcase!
+    end
+
+    def build_coupon_matrix
+        coupons_list = []
+        1.upto(coupon_quantity) do |number| 
+            coupons_list << {code: "#{code}-#{'%04d' % number}", promotion_id: id, created_at: Time.current, updated_at: Time.current}
+        end
+
+        coupons_list
     end
 end
