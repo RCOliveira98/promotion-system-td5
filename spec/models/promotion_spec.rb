@@ -39,8 +39,8 @@ describe Promotion do
 
       expect(promotion.coupons.size).to eq(100)
       codes = promotion.coupons.pluck(:code)
-      expect(codes).to include('NATAL10-0001')
-      expect(codes).to include('NATAL10-0100')
+      expect(codes).to include('NATAL10-0001') # first
+      expect(codes).to include('NATAL10-0100') # last
       expect(codes).not_to include('NATAL10-0000')
       expect(codes).not_to include('NATAL10-0101')
     end
@@ -55,5 +55,10 @@ describe Promotion do
 
       expect(promotion.coupons.reload.size).to eq(1)
     end
+  end
+
+  # TODO: não permitir edição da quantidade de cupos de uma promoção se cupons tiverem sidos gerados. Teste unitário e de interface.
+
+  xscenario 'hide button if coupons generated' do
   end
 end

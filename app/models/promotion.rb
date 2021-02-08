@@ -18,6 +18,7 @@ class Promotion < ApplicationRecord
 
     def build_coupon_matrix
         coupons_list = []
+
         1.upto(coupon_quantity) do |number| 
             coupons_list << {code: "#{code}-#{'%04d' % number}", promotion_id: id, created_at: Time.current, updated_at: Time.current}
         end

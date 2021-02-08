@@ -4,12 +4,16 @@
     </div>
 <% end %>
 
-<h1><%= @promotion.name %></h1>
-<h4><%= @promotion.description %></h4>
-<p><%= @promotion.code %></p>
-<p><%= number_to_percentage(@promotion.discount_rate, precision: 2, separator: ',') %></p>
-<p><%= @promotion.coupon_quantity %></p>
-<p><%= localize(@promotion.expiration_date) %></p>
+<div class="content">
+    <h1><%= @promotion.name %></h1>
+    <h4><%= @promotion.description %></h4>
+    <p>
+        <span><%= @promotion.code %></span>
+    </p>
+    <p><%= number_to_percentage(@promotion.discount_rate, precision: 2, separator: ',') %></p>
+    <p><%= @promotion.coupon_quantity %></p>
+    <p><%= localize(@promotion.expiration_date) %></p>
+</div>
 
 <div>
     <%= link_to 'Voltar', promotions_path, class: 'button is-dark' %>
@@ -24,8 +28,29 @@
 
 <% unless @promotion.coupons.empty? %>
     <div>
-        <% @promotion.coupons.each do |coupon| %>
-            <p><%= coupon.code %></p>
-        <% end %>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>CÓDIGO</th>
+                    <th>AÇÃO</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @promotion.coupons.each do |coupon| %>
+                    <tr>
+                        <th><%= coupon.id %></th>
+                        <th><%= coupon.code %> (<%= t(".#{coupon.status}") %>)</th>
+                        <th>
+                            <%= link_to 'Inativar',
+                            inactivate_coupon_path(coupon),
+                            method: :patch,
+                            class: 'button is-warning' %>
+                        </th>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+        
     </div>
 <% end %>
