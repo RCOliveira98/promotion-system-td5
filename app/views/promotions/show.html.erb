@@ -38,14 +38,16 @@
             </thead>
             <tbody>
                 <% @promotion.coupons.each do |coupon| %>
-                    <tr>
+                    <tr id="coupon_<%= coupon.id %>">
                         <th><%= coupon.id %></th>
                         <th><%= coupon.code %> (<%= t(".#{coupon.status}") %>)</th>
                         <th>
-                            <%= link_to 'Inativar',
-                            inactivate_coupon_path(coupon),
-                            method: :patch,
-                            class: 'button is-warning' %>
+                            <% if coupon.active? %>
+                                <%= link_to 'Inativar',
+                                inactivate_coupon_path(coupon),
+                                method: :patch,
+                                class: 'button is-warning' %>
+                            <% end %>
                         </th>
                     </tr>
                 <% end %>
