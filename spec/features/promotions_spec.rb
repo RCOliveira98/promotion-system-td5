@@ -1,7 +1,17 @@
 require 'rails_helper'
 
 feature 'Admin registers a promotion' do
+
+  scenario 'must be signed in' do
+    visit root_path
+    click_on 'Entrar'
+    expect(current_path).to eq new_user_session_path
+  end
+
   scenario 'from index page' do
+    user = User.create!(email: 'rco@gmail.com', password: '123456')
+    login_as(user, scope: :user)
+
     visit root_path
     click_on 'Promoções'
 
@@ -10,6 +20,9 @@ feature 'Admin registers a promotion' do
   end
 
   scenario 'successfully' do
+    user = User.create!(email: 'rco@gmail.com', password: '123456')
+    login_as(user, scope: :user)
+
     visit root_path
     click_on 'Promoções'
     click_on 'Registrar uma promoção'
@@ -36,9 +49,12 @@ end
 
 feature 'Admin registers a valid promotion' do
     scenario 'and attributes cannot be blank' do
+      user = User.create!(email: 'rco@gmail.com', password: '123456')
+      login_as(user, scope: :user)
+
       Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                         code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
-                        expiration_date: '22/12/2033')
+                        expiration_date: '22/12/2033', user: user)
   
       visit root_path
       click_on 'Promoções'
@@ -55,9 +71,12 @@ feature 'Admin registers a valid promotion' do
     end
   
     scenario 'and code must be unique' do
+      user = User.create!(email: 'rco@gmail.com', password: '123456')
+      login_as(user, scope: :user)
+      
       Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                         code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
-                        expiration_date: '22/12/2033')
+                        expiration_date: '22/12/2033', user: user)
   
       visit root_path
       click_on 'Promoções'
@@ -71,9 +90,12 @@ end
 
 feature 'Admin update a promotion' do
   scenario 'and attributes cannot be blank' do
+    user = User.create!(email: 'rco@gmail.com', password: '123456')
+    login_as(user, scope: :user)
+
     promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
       code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
-      expiration_date: '22/12/2033')
+      expiration_date: '22/12/2033', user: user)
     
     visit root_path
     click_on 'Promoções'
@@ -93,12 +115,15 @@ feature 'Admin update a promotion' do
   end
 
   scenario 'and code must be unique' do
+    user = User.create!(email: 'rco@gmail.com', password: '123456')
+    login_as(user, scope: :user)
+  
     Promotion.create!(name: 'SuperShow', description: 'Promoção superShow',
       code: 'SUPSHOW20', discount_rate: 30, coupon_quantity: 15,
-      expiration_date: '22/12/2033')
+      expiration_date: '22/12/2033', user: user)
     promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                       code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
-                      expiration_date: '22/12/2033')
+                      expiration_date: '22/12/2033', user: user)
 
     visit root_path
     click_on 'Promoções'
@@ -112,9 +137,12 @@ feature 'Admin update a promotion' do
   end
 
   scenario 'success' do
+    user = User.create!(email: 'rco@gmail.com', password: '123456')
+    login_as(user, scope: :user)
+
     promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                       code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
-                      expiration_date: '22/12/2033')
+                      expiration_date: '22/12/2033', user: user)
 
     visit root_path
     click_on 'Promoções'
@@ -130,9 +158,12 @@ end
 
 feature 'Admin delete a promotion' do
   scenario 'success without coupons' do
+    user = User.create!(email: 'rco@gmail.com', password: '123456')
+    login_as(user, scope: :user)
+
     promotion = Promotion.create!(name: 'SuperShow', description: 'Promoção superShow',
       code: 'SupShow20', discount_rate: 30, coupon_quantity: 15,
-      expiration_date: '22/12/2033')
+      expiration_date: '22/12/2033', user: user)
 
     visit root_path
     click_on 'Promoções'
@@ -142,9 +173,12 @@ feature 'Admin delete a promotion' do
   end
 
   scenario 'success with coupons' do
+    user = User.create!(email: 'rco@gmail.com', password: '123456')
+    login_as(user, scope: :user)
+  
     promotion = Promotion.create!(name: 'SuperShow', description: 'Promoção superShow',
       code: 'SupShow20', discount_rate: 30, coupon_quantity: 15,
-      expiration_date: '22/12/2033')
+      expiration_date: '22/12/2033', user: user)
 
     visit root_path
     click_on 'Promoções'

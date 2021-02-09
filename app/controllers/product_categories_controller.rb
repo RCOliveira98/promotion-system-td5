@@ -1,5 +1,6 @@
 class ProductCategoriesController < ApplicationController
 
+    before_action :authenticate_user!
     before_action :product_category_find_by_id, only: %i[show edit update destroy]
 
     def index

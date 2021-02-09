@@ -26,7 +26,6 @@ feature 'Admin registers a promotion' do
 
   scenario 'successfully' do
     user = User.create!(email: 'rco@email.com', password: '123456')
-    # Act
     login_as user, scope: :user
 
     visit root_path
