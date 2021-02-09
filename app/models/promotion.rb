@@ -3,6 +3,8 @@ class Promotion < ApplicationRecord
     validates :code, presence: true, uniqueness: true    
 
     has_many :coupons, dependent: :destroy
+    belongs_to :user
+    
     before_save :code_upcase
 
     def generate_coupons!

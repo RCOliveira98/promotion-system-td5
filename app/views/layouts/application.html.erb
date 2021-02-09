@@ -11,7 +11,60 @@
   </head>
 
   <body>
-    <div class="container mt-1">
+
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div id="app_navbar" class="navbar-menu">
+        <div class="navbar-start">
+          <%= link_to 'Principal', root_path, class: "navbar-item" %>
+          <%= link_to 'Promoções', promotions_path, class: "navbar-item" %>
+          <%= link_to 'Categorias de promoção', product_categories_path, class: "navbar-item" %>
+        </div>
+
+        <div class="navbar-end">
+
+          <% if user_signed_in? %>
+            <a class="navbar-item">
+              <%= current_user.email %>
+            </a>
+            <div class="buttons">
+              <%= link_to 'Sair', destroy_user_session_path, method: :delete, class: 'button is-danger navbar-item' %>
+            </div>
+          <% else %>
+                <div class="buttons">
+                  <%= link_to 'Criar conta', new_user_registration_path, class: 'button is-success navbar-item' %>
+                  <%= link_to 'Entrar', new_user_session_path, class: 'button is-link is-outlined navbar-item' %>
+                </div>
+          <% end %>
+        </div>
+
+      </div>
+    </nav>
+  
+    <div class="container">
+      <% if notice %>
+        <article class="message is-info">
+          <div class="message-header">
+            <p>Informação ...</p>
+            <button class="delete" aria-label="delete"></button>
+          </div>
+          <div class="message-body">
+            <%= notice %>
+          </div>
+        </article>
+      <% end %>
+
+      <% if alert %>
+        <article class="message is-danger">
+          <div class="message-header">
+            <p>Ops...</p>
+            <button class="delete" aria-label="delete"></button>
+          </div>
+          <div class="message-body">
+            <%= alert %>
+          </div>
+        </article>
+      <% end %>
+  
       <%= yield %>
     </div>
   </body>

@@ -1,4 +1,5 @@
 class PromotionsController < ApplicationController
+    before_action :authenticate_user!
     before_action :promotion_find_by_id, only: %i[edit update destroy]
 
     def index
@@ -11,6 +12,8 @@ class PromotionsController < ApplicationController
 
     def create
         @promotion = Promotion.new(promotion_params())
+        @promotion.user = current_user
+
         if @promotion.save()
             redirect_to promotion_path(id: @promotion.id)
         else
@@ -26,6 +29,7 @@ class PromotionsController < ApplicationController
     end
 
     def update
+        @promotion.user = current_user
         if @promotion.update(promotion_params())
             flash[:notice] = 'Promoção atualizada com sucesso!'
             redirect_to promotion_path(id: @promotion.id)
