@@ -59,6 +59,10 @@ class PromotionsController < ApplicationController
         redirect_to promotion
     end
 
+    def search
+        @promotions = Promotion.where('name like ? OR description like ?', "%#{params[:term]}%", "%#{params[:term]}%")
+    end
+
     private
     def promotion_params
         params.require(:promotion).permit(:name, :description, :code, :discount_rate, :expiration_date, :coupon_quantity)

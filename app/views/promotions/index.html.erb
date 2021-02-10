@@ -1,19 +1,4 @@
-<h1>Promoções</h1>
+<h1 class="title">Promoções</h1>
 
-<%= link_to 'Voltar', root_path %>
-<%= link_to 'Registrar uma promoção', new_promotion_path %>
-
-<% if @promotions.empty? %>
-    <p>Nenhuma promoção cadastrada</p>
-<% else %>
-    <dl>
-        <% @promotions.each do |promotion| %>
-            <dt>Nome:</dt>
-            <dd><%= link_to promotion.name, promotion_path(promotion.id) %></dd>
-            <dt>Descrição:</dt>
-            <dd><%= promotion.description %></dd>
-            <dt>Descrição:</dt>
-            <dd><%= number_to_percentage(promotion.discount_rate, precision: 2, separator: ',')  %></dd>
-        <% end %>
-    </dl>
-<% end %>
+<%= render partial: 'promotions/shared/promotions',
+locals: {message_promotions_empty: 'Nenhuma promoção cadastrada'} %>

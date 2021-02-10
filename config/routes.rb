@@ -9,6 +9,8 @@ Rails.application.routes.draw do
       post 'generate_coupons'
       post 'approve'
     end
+
+    get 'search', on: :collection
   end
 
   resources :coupons, only: %i[] do

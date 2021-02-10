@@ -1,0 +1,33 @@
+<div class="mt-1">
+  <%= form_with url: search_promotions_path, method: :get, local: true do |form| %>
+    <div class="field is-grouped">
+      <%= form.label :term, 'Buscar:', class: 'label' %>
+        <div class="control">
+          <%= form.text_field :term , class: 'input', placeholder: "Nome ou descrição da promoção" %>
+        </div>
+
+        <div class="control">
+          <%= form.submit 'Pesquisar', class: 'button is-info' %>
+
+          <%= link_to 'Voltar', root_path, class: 'button is-dark' %>
+          <%= link_to 'Registrar uma promoção', new_promotion_path,  class: 'button is-success' %>
+        </div>
+    </div>
+    
+  <% end %>
+</div>
+<hr>
+<% if @promotions.empty? %>
+  <p><%= message_promotions_empty %></p>
+<% else %>
+  <dl>
+    <% @promotions.each do |promotion| %>
+      <dt>Nome:</dt>
+      <dd><%= link_to promotion.name, promotion_path(promotion.id) %></dd>
+      <dt>Descrição:</dt>
+      <dd><%= promotion.description %></dd>
+      <dt>Descrição:</dt>
+      <dd><%= number_to_percentage(promotion.discount_rate, precision: 2, separator: ',')  %></dd>
+    <% end %>
+  </dl>
+<% end %>
