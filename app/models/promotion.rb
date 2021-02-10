@@ -3,6 +3,7 @@ class Promotion < ApplicationRecord
     validates :code, presence: true, uniqueness: true    
 
     has_many :coupons, dependent: :destroy
+    has_one :promotion_approval
     belongs_to :user
     
     before_save :code_upcase
@@ -13,7 +14,20 @@ class Promotion < ApplicationRecord
         end
     end
 
+    def approved?
+        promotion_approval
+    end
+
+    def approver
+        promotion_approval&.user
+    end
+
+    def approve!(user)
+        PromotionApproval.create(promotion: self, user: user)
+    end
+
     private
+
     def code_upcase
         code.upcase!
     end

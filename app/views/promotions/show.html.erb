@@ -8,6 +8,13 @@
     <p><%= @promotion.coupon_quantity %></p>
     <p><%= localize(@promotion.expiration_date) %></p>
     <p>Cadastrada por: <%= @promotion.user.email %></p>
+    <% unless @promotion.user == current_user %>
+        <%= link_to 'Aprovar promoção', approve_promotion_path, method: :post %>
+    <% end %>
+
+    <% if @promotion.approved? %>
+        <p>Promoção aprovada!</p>
+    <% end %>
 </div>
 
 <div>

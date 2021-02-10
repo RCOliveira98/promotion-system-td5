@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :promotions do
-    post 'generate_coupons', on: :member
+    member do
+      post 'generate_coupons'
+      post 'approve'
+    end
   end
 
   resources :coupons, only: %i[] do
