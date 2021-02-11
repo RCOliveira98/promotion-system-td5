@@ -1,20 +1,20 @@
 <div class="content">
-    <h1><%= @promotion.name %></h1>
-    <h4><%= @promotion.description %></h4>
-    <p>
-        <span><%= @promotion.code %></span>
-    </p>
-    <p><%= number_to_percentage(@promotion.discount_rate, precision: 2, separator: ',') %></p>
-    <p><%= @promotion.coupon_quantity %></p>
-    <p><%= localize(@promotion.expiration_date) %></p>
-    <p>Cadastrada por: <%= @promotion.user.email %></p>
-    <% unless @promotion.user == current_user %>
-        <%= link_to 'Aprovar promoção', approve_promotion_path, method: :post %>
-    <% end %>
+  <h1><%= @promotion.name %></h1>
+  <h4><%= @promotion.description %></h4>
+  <p>
+    <span><%= @promotion.code %></span>
+  </p>
+  <p><%= number_to_percentage(@promotion.discount_rate, precision: 2, separator: ',') %></p>
+  <p><%= @promotion.coupon_quantity %></p>
+  <p><%= localize(@promotion.expiration_date) %></p>
+  <p>Cadastrada por: <%= @promotion.user.email %></p>
+  <% unless @promotion.user == current_user %>
+    <%= link_to 'Aprovar promoção', approve_promotion_path, method: :post %>
+  <% end %>
 
-    <% if @promotion.approved? %>
-        <p>Promoção aprovada!</p>
-    <% end %>
+  <% if @promotion.approved? %>
+    <p>Promoção aprovada!</p>
+  <% end %>
 </div>
 
 <div>
@@ -29,32 +29,48 @@
 </div>
 
 <% unless @promotion.coupons.empty? %>
-    <div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>CÓDIGO</th>
-                    <th>AÇÃO</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% @promotion.coupons.each do |coupon| %>
-                    <tr id="coupon_<%= coupon.id %>">
-                        <th><%= coupon.id %></th>
-                        <th><%= coupon.code %> (<%= t(".#{coupon.status}") %>)</th>
-                        <th>
-                            <% if coupon.active? %>
-                                <%= link_to 'Inativar',
-                                inactivate_coupon_path(coupon),
-                                method: :patch,
-                                class: 'button is-warning' %>
-                            <% end %>
-                        </th>
-                    </tr>
-                <% end %>
-            </tbody>
-        </table>
-        
+  <hr>
+  <div>
+    <%= form_with url: promotion_search_coupons_path(@promotion.id), method: :get, local: true %>
+    <div class="field is-grouped">
+      <%= label_tag :search_id, 'Pesquisa:', class: 'label' %>
+        <div class="control">
+          <%= text_field_tag :search_id, "", class: 'input', placeholder: "Nome ou descrição da promoção" %>
+        </div>
+
+        <div class="control">
+          <%= submit_tag 'Pesquisar', class: 'button is-info' %>
+        </div>
     </div>
+    
+  </div>
+  <hr>
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>CÓDIGO</th>
+          <th>AÇÃO</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @promotion.coupons.each do |coupon| %>
+          <tr id="coupon_<%= coupon.id %>">
+            <th><%= coupon.id %></th>
+            <th><%= coupon.code %> (<%= t(".#{coupon.status}") %>)</th>
+            <th>
+              <% if coupon.active? %>
+                <%= link_to 'Inativar',
+                inactivate_coupon_path(coupon),
+                method: :patch,
+                class: 'button is-warning' %>
+              <% end %>
+            </th>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+      
+  </div>
 <% end %>

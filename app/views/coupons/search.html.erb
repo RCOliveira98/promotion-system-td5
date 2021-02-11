@@ -1,0 +1,23 @@
+<div>
+  <h1 class="title">Cupom encontrado!</h1>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <div class="card-header-title">
+      <strong><%= @coupon.code %></strong>
+    </div>
+  </div>
+
+  <div class="card-content">
+    <p><%= @coupon.id %></p>
+    <p>Promoção <%= @coupon.promotion.name %> - <%= @coupon.promotion.code %></p>
+  </div>
+
+  <div class="card-footer">
+    <div class="card-footer-item">
+      <button class="button is-dark">Voltar</button>
+    </div>
+  </div>
+</div>
+

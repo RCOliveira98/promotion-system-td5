@@ -42,26 +42,16 @@
   
     <div class="container">
       <% if notice %>
-        <article class="message is-info">
-          <div class="message-header">
-            <p>Informação ...</p>
-            <button class="delete" aria-label="delete"></button>
-          </div>
-          <div class="message-body">
-            <%= notice %>
-          </div>
+        <article class="notification is-info  is-light">
+          <button class="delete" aria-label="delete"  onclick="this.parentElement.style.display='none'"></button>
+          <%= notice %>
         </article>
       <% end %>
 
       <% if alert %>
-        <article class="message is-danger">
-          <div class="message-header">
-            <p>Ops...</p>
-            <button class="delete" aria-label="delete"></button>
-          </div>
-          <div class="message-body">
-            <%= alert %>
-          </div>
+        <article class="notification is-danger  is-light">
+          <button class="delete" aria-label="delete"  onclick="this.parentElement.style.display='none'"></button>
+          <%= alert %>
         </article>
       <% end %>
   

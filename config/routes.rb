@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   resources :coupons, only: %i[] do
     patch "inactivate", to: "coupons#inactivate", on:  :member
+    get ":promotion/search", to: "coupons#search", on: :collection, as: 'promotion_search'
   end
 
   resources :product_categories
