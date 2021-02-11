@@ -3,6 +3,9 @@ class Promotion < ApplicationRecord
     validates :code, presence: true, uniqueness: true    
 
     has_many :coupons, dependent: :destroy
+    has_many :product_category_promotions
+    has_many :product_categories, through: :product_category_promotions
+    
     has_one :promotion_approval
     belongs_to :user
     

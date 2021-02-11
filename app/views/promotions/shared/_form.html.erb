@@ -41,6 +41,10 @@
     </div>
 
     <div>
+        <%= form.collection_check_boxes(:product_category_ids, @product_categories, :id, :name) %>
+    </div>
+
+    <div>
         <%= form.submit button_title, class: 'button is-link' %>
     </div>
         

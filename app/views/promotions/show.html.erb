@@ -18,6 +18,13 @@
 </div>
 
 <div>
+  <h2 class="subtitle">Categorias de produto</h2>
+  <% @promotion.product_categories.each do |product_category| %>
+    <span><%= product_category.name %></span>
+  <% end %>
+</div>
+
+<div>
     <%= link_to 'Voltar', promotions_path, class: 'button is-dark' %>
     <%= link_to 'Editar', edit_promotion_path(id: @promotion.id), class: 'button is-warning' %>
     <%= link_to 'Apagar', promotion_path(id: @promotion.id), method: :delete, class: 'button is-danger' %>

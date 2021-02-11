@@ -50,4 +50,39 @@ feature 'Admin registers a promotion' do
     expect(page).to have_content('Cadastrada por: rco@email.com')
     expect(page).to have_link('Voltar')
   end
+
+  scenario 'and select product categories' do
+
+    user = User.create!(email: 'rco@email.com', password: '123456')
+    ProductCategory.create!(name: 'Esportes', code: 'SPORTS')
+    ProductCategory.create!(name: 'Eletrodomésticos', code: 'EAFH')
+    ProductCategory.create!(name: 'Entretenimento', code: 'ENTERTAINMENT')
+    ProductCategory.create!(name: 'Moda', code: 'FASHION')
+
+    login_as(user, scope: :user)
+
+    visit root_path
+    click_on 'Promoções'
+    click_on 'Registrar uma promoção'
+
+    fill_in 'Nome', with: 'Tudo sports'
+    fill_in 'Descrição', with: 'Promoção especial para amantes dos esportes'
+    fill_in 'Código', with: '+SPORTS2021.2'
+    fill_in 'Desconto', with: '20'
+    fill_in 'Quantidade de cupons', with: '40'
+    fill_in 'Data de término', with: '22/12/2033'
+
+    check 'Esportes'
+    check 'Entretenimento'
+
+    click_on 'Criar promoção'
+
+    promotion = Promotion.last
+    expect(current_path).to eq(promotion_path(promotion))
+    expect(page).to have_content 'Esportes'
+    expect(page).to have_content 'Entretenimento'
+    expect(page).not_to have_content 'Eletrodomésticos'
+    expect(page).not_to have_content 'Moda'
+
+  end
 end

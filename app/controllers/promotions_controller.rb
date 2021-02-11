@@ -7,6 +7,7 @@ class PromotionsController < ApplicationController
     end
 
     def new
+        @product_categories = ProductCategory.all()
         @promotion = Promotion.new()
     end
 
@@ -17,6 +18,7 @@ class PromotionsController < ApplicationController
         if @promotion.save()
             redirect_to promotion_path(id: @promotion.id)
         else
+            @product_categories = ProductCategory.all()
             render :new
         end
     end
@@ -65,7 +67,10 @@ class PromotionsController < ApplicationController
 
     private
     def promotion_params
-        params.require(:promotion).permit(:name, :description, :code, :discount_rate, :expiration_date, :coupon_quantity)
+        params.require(:promotion).permit(
+            :name, :description, :code, :discount_rate, 
+            :expiration_date, :coupon_quantity, product_category_ids: []
+        )
     end
 
     def promotion_find_by_id
